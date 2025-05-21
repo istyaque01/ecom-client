@@ -23,7 +23,11 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:8000/register", formData);
+      const res = await axios.post(
+        "https://ecom-server-2.onrender.com/register",
+        formData
+      );
+      // const res = await axios.post("http://localhost:8000/register", formData);
       const data = res.data;
 
       if (data.status === true) {

@@ -36,7 +36,8 @@ const AddProductModal = ({ show, handleClose }) => {
     try {
       setLoading(true);
       const res = await axios.post(
-        "http://localhost:8000/products/upload",
+        "https://ecom-server-2.onrender.com/products/upload",
+        // "http://localhost:8000/products/upload",
         formData
       );
       if (res.data.status === true) {

@@ -16,7 +16,7 @@ import { loadStripe } from "@stripe/stripe-js";
 
 const stripePromise = loadStripe(
   "pk_test_51RQo6fP9EmhkwZRMgjGWxu41w1GsDsxxwHKRwBrS0r9OGmCokDAh9MHIXWFHvqoSVnjy8iu5kuQE0OfJBI5N1P1800H9J9JIpX"
-); // Replace with your Stripe publishable key
+);
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -56,7 +56,10 @@ export default function Products() {
   const getAllProducts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:8000/products/all");
+      const response = await axios.get(
+        "https://ecom-server-2.onrender.com/products/all"
+      );
+      // const response = await axios.get("http://localhost:8000/products/all");
       setProducts(response.data?.products);
       console.log(response.data?.products);
     } catch (err) {
@@ -70,7 +73,8 @@ export default function Products() {
   const handleSaveEdit = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:8000/products/update/${editProduct._id}`,
+        `https://ecom-server-2.onrender.com/products/update/${editProduct._id}`,
+        // `http://localhost:8000/products/update/${editProduct._id}`,
         {
           name: editProduct.name,
           price: editProduct.price,
@@ -96,7 +100,8 @@ export default function Products() {
   const confirmDelete = async () => {
     try {
       const res = await axios.delete(
-        `http://localhost:8000/products/delete/${selectedProductId}`
+        `https://ecom-server-2.onrender.com/products/delete/${selectedProductId}`
+        // `http://localhost:8000/products/delete/${selectedProductId}`
       );
       if (res.data.status === true) {
         toast.success("Product deleted");
@@ -119,12 +124,13 @@ export default function Products() {
     const stripe = await stripePromise;
 
     const quantity = quantities[productId] || 1;
-    const userId = localStorage.getItem("userId"); // Get userId from auth or context
-    const product = products.find((p) => p._id === productId); // Assuming you have product data
+    const userId = localStorage.getItem("userId");
+    const product = products.find((p) => p._id === productId);
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/payment/create-checkout-session",
+        "https://ecom-server-2.onrender.com/payment/create-checkout-session",
+        // "http://localhost:8000/payment/create-checkout-session",
         {
           productId,
           quantity,
@@ -152,19 +158,21 @@ export default function Products() {
     navigate("/login", { replace: true });
   };
 
-  const role = localStorage.getItem("role")
+  const role = localStorage.getItem("role");
   return (
     <>
       <Container className="my-5">
         <div className="d-flex justify-content-between align-items-center mb-4">
           <h2>All Products</h2>
           <div className="d-flex gap-2">
-           {role === "admin" &&  <Button
-              variant="outline-primary"
-              onClick={() => navigate("/admin")}
-            >
-              Back to Dashboard
-            </Button>}
+            {role === "admin" && (
+              <Button
+                variant="outline-primary"
+                onClick={() => navigate("/admin")}
+              >
+                Back to Dashboard
+              </Button>
+            )}
             <Button variant="outline-primary" onClick={handleLogout}>
               Logout
             </Button>

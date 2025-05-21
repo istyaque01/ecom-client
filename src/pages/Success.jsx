@@ -23,7 +23,8 @@ export default function Success() {
     const savePurchase = async () => {
       try {
         const res = await axios.post(
-          "http://localhost:8000/purchase/save-purchase",
+          "https://ecom-server-2.onrender.com/purchase/save-purchase",
+          // "http://localhost:8000/purchase/save-purchase",
           {
             productId,
             userId,
