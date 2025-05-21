@@ -42,8 +42,8 @@ const Register = () => {
 
   return (
     <Container className="mt-5 d-flex justify-content-center">
-      <Card style={{ width: "400px" }} className="p-4 shadow">
         <h3 className="text-center mb-4">E-Commerce App - Register</h3>
+      <Card style={{ width: "400px" }} className="p-4 shadow">
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="fullname">
             <Form.Label>Full Name</Form.Label>
